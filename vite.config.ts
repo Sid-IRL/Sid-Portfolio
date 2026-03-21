@@ -1,3 +1,4 @@
+import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
@@ -7,4 +8,9 @@ const repoBasePath = '/Sid_Portfolio/'
 export default defineConfig({
   base: repoBasePath,
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 })
