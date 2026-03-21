@@ -32,6 +32,21 @@ The Vite config is set with `base: "/Sid_Portfolio/"` for GitHub Pages-style dep
 
 If GitHub Pages shows an error mentioning `src/main.tsx`, GitHub is serving the raw source files instead of the built Vite output. `src/main.tsx` is TypeScript/TSX entry code for development, not a browser-ready file.
 
+This repo uses **Vite**, not Next.js. The Vite equivalent of:
+
+- `basePath: '/Sid_Portfolio'`
+- `assetPrefix: '/Sid_Portfolio/'`
+
+is:
+
+```ts
+export default defineConfig({
+  base: '/Sid_Portfolio/',
+})
+```
+
+That configuration already exists in `vite.config.ts`, and the GitHub Actions workflow deploys the built `dist/` folder.
+
 Use this repository's GitHub Actions workflow to deploy:
 
 1. Open the repository on GitHub.
