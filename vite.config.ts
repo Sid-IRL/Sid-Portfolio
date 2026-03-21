@@ -2,9 +2,11 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-// https://vitejs.dev/config/
+const repoBasePath = '/Sid_Portfolio/'
+
+// Vite equivalent of Next.js basePath/assetPrefix for GitHub Pages.
 export default defineConfig({
-  base: '/Sid_Portfolio/',
+  base: repoBasePath,
   plugins: [react()],
   resolve: {
     alias: {

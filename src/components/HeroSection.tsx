@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 
 const HeroSection = () => {
+  const scrollToAbout = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center relative px-4">
       <div className="text-center z-10">
@@ -43,14 +47,15 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.5 }}
           >
-            <motion.a
-              href="#about"
+            <motion.button
+              type="button"
+              onClick={scrollToAbout}
               className="script-btn px-6 py-3 rounded-lg font-mono text-sm"
               whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255, 45, 45, 0.4)' }}
               whileTap={{ scale: 0.95 }}
             >
               init_exploration.run
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
 
