@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import LoadingScreen from '@/components/LoadingScreen';
 import AnimatedBackground from '@/components/AnimatedBackground';
@@ -15,15 +15,23 @@ import Footer from '@/components/Footer';
 import ExperienceBadge from '@/components/ExperienceBadge';
 
 const Index = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const hasSeenLoading = sessionStorage.getItem('sid-loading-shown') === 'true';
+  const [isLoading, setIsLoading] = useState(!hasSeenLoading);
   const [activeSection, setActiveSection] = useState('');
   const [executingScript, setExecutingScript] = useState<string | null>(null);
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(hasSeenLoading);
 
   const handleLoadingComplete = useCallback(() => {
+    sessionStorage.setItem('sid-loading-shown', 'true');
     setIsLoading(false);
     setTimeout(() => setShowContent(true), 100);
   }, []);
+
+  useEffect(() => {
+    if (hasSeenLoading) {
+      setShowContent(true);
+    }
+  }, [hasSeenLoading]);
 
   const handleNavigate = useCallback((section: string) => {
     setExecutingScript(`${section}.run`);
