@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ScriptExecutorProps {
   scriptName: string;
@@ -7,68 +7,90 @@ interface ScriptExecutorProps {
   onComplete: () => void;
 }
 
-const getScriptLines = (scriptName: string) => [
-  `> compiling ${scriptName}...`,
-  '> loading modules...',
-  '> resolving dependencies...',
-  '> injecting UI components...',
-  '> rendering data structures...',
-  '> execution complete ✓',
+const getScriptSteps = (scriptName: string) => [
+  `boot ${scriptName}`,
+  'sync navigation target',
+  'prime viewport renderer',
+  'execute smooth scroll',
 ];
 
 const ScriptExecutor = ({ scriptName, isExecuting, onComplete }: ScriptExecutorProps) => {
-  const [visibleLines, setVisibleLines] = useState<number[]>([]);
-  const lines = getScriptLines(scriptName);
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = useMemo(() => getScriptSteps(scriptName), [scriptName]);
+  const totalDuration = 720;
+  const stepDuration = totalDuration / steps.length;
 
   useEffect(() => {
     if (!isExecuting) {
-      setVisibleLines([]);
+      setActiveStep(0);
       return;
     }
 
-    setVisibleLines([]);
+    setActiveStep(0);
 
-    lines.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleLines(prev => [...prev, index]);
-      }, index * 250);
-    });
+    const timers = steps.map((_, index) =>
+      window.setTimeout(() => {
+        setActiveStep(index);
+      }, index * stepDuration),
+    );
 
-    setTimeout(() => {
+    const completionTimer = window.setTimeout(() => {
       onComplete();
-    }, lines.length * 250 + 300);
-  }, [isExecuting, scriptName, onComplete, lines.length]);
+    }, totalDuration + 140);
+
+    return () => {
+      timers.forEach(window.clearTimeout);
+      window.clearTimeout(completionTimer);
+    };
+  }, [isExecuting, onComplete, stepDuration, steps, totalDuration]);
 
   return (
     <AnimatePresence>
       {isExecuting && (
         <motion.div
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md mx-4"
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -10 }}
-          transition={{ duration: 0.3 }}
+          className="pointer-events-none fixed inset-x-0 top-20 z-50 flex justify-center px-4"
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -24 }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
         >
-          <div className="bg-terminal-bg border border-primary/40 rounded-lg shadow-glow-strong overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 border-b border-primary/20">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="font-mono text-xs text-primary">{scriptName}</span>
-            </div>
+          <div className="w-full max-w-xl overflow-hidden rounded-full border border-primary/30 bg-background/85 shadow-glow-strong backdrop-blur-md">
+            <motion.div
+              className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent via-primary/25 to-transparent"
+              initial={{ x: '-30%' }}
+              animate={{ x: '520%' }}
+              transition={{ duration: 0.55, ease: 'easeInOut', repeat: Infinity, repeatDelay: 0.08 }}
+            />
 
-            <div className="p-4 font-mono text-sm space-y-1">
-              {lines.map((line, index) => (
+            <div className="relative flex items-center gap-4 px-4 py-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={visibleLines.includes(index) ? { opacity: 1, x: 0 } : { opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className={`text-primary/80 ${
-                    index === lines.length - 1 ? 'text-green-400' : ''
-                  }`}
+                  className="h-2.5 w-2.5 rounded-full bg-primary shadow-glow"
+                  animate={{ scale: [1, 1.35, 1], opacity: [0.65, 1, 0.65] }}
+                  transition={{ duration: 0.5, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  {line}
                 </motion.div>
-              ))}
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                    <span className="truncate">{scriptName}</span>
+                    <span>{Math.min(activeStep + 1, steps.length)}/{steps.length}</span>
+                  </div>
+
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-primary/10">
+                    <motion.div
+                      className="h-full rounded-full bg-primary"
+                      initial={{ width: '0%' }}
+                      animate={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
+                      transition={{ duration: stepDuration / 1000, ease: 'easeOut' }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="hidden font-mono text-[11px] text-primary/70 sm:block">
+                {steps[activeStep]}
+              </div>
             </div>
           </div>
         </motion.div>
