@@ -1,98 +1,115 @@
-export type CertificateType = "certificate" | "award";
-
 export interface Certificate {
-  id: string;
-  title: string;
+  name: string;
   issuer: string;
-  type: CertificateType;
-  file?: string;
-  image?: string;
-  available: boolean;
-  note?: string;
 }
-
-const withBasePath = (assetPath: string) => `${import.meta.env.BASE_URL}${assetPath}`;
 
 export const certificates: Certificate[] = [
   {
-    id: "high-achiever",
-    title: "High Achiever Award 2025",
+    name: "High Achiever Certificate",
     issuer: "LG Soft India",
-    type: "award",
-    file: withBasePath("certificates/high-achiever.pdf"),
-    available: true,
-    note: "Uploaded and ready to view.",
   },
   {
-    id: "linux-privesc",
-    title: "Advanced Linux Privilege Escalation",
-    issuer: "Udemy / Hack The Box",
-    type: "certificate",
-    available: false,
-    note: "Add linux-privilege-escalation.pdf to public/certificates to publish this certificate.",
+    name: "Machine Learning Regression",
+    issuer: "Analyttica",
   },
   {
-    id: "aws",
-    title: "AWS Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    type: "certificate",
-    available: false,
-    note: "Add aws-certificate.pdf to public/certificates to publish this certificate.",
+    name: "Cloud Practitioner",
+    issuer: "AWS",
   },
   {
-    id: "ibm-ai",
-    title: "IBM AI Foundations",
-    issuer: "Coursera / IBM",
-    type: "certificate",
-    available: false,
-    note: "Add coursera-ibm-ai.pdf to public/certificates to publish this certificate.",
+    name: "Basics of Python",
+    issuer: "IIT Bombay Spoken Tutorial",
   },
   {
-    id: "python",
-    title: "Python for Everybody",
-    issuer: "Coursera",
-    type: "certificate",
-    available: false,
-    note: "Add coursera-python.pdf to public/certificates to publish this certificate.",
+    name: "Cybersecurity",
+    issuer: "Cisco NASSCOM",
   },
   {
-    id: "cybersecurity-cisco",
-    title: "Cybersecurity Essentials",
-    issuer: "Cisco / NASSCOM",
-    type: "certificate",
-    available: false,
-    note: "Add cybersecurity-cisco.pdf to public/certificates to publish this certificate.",
+    name: "Programming Foundations",
+    issuer: "Duke University",
   },
   {
-    id: "cybersecurity-mobility",
-    title: "Cybersecurity & Mobility",
-    issuer: "Coursera",
-    type: "certificate",
-    available: false,
-    note: "Add cybersecurity-mobility.pdf to public/certificates to publish this certificate.",
+    name: "EdgeLine Championship",
+    issuer: "EdgeLine",
   },
   {
-    id: "google-ux",
-    title: "Google UX Design",
-    issuer: "Google / Coursera",
-    type: "certificate",
-    available: false,
-    note: "Add google-ux-design.pdf to public/certificates to publish this certificate.",
+    name: "Foundations of User Experience",
+    issuer: "Google",
   },
   {
-    id: "alfa-zyrus",
-    title: "Automotive Cybersecurity",
-    issuer: "Alfa Zyrus",
-    type: "certificate",
-    available: false,
-    note: "Add alfa-zyrus.pdf to public/certificates to publish this certificate.",
+    name: "Introduction to Deep Learning",
+    issuer: "Great Learning",
   },
   {
-    id: "web-dev",
-    title: "Web Development Training",
+    name: "Introduction to Artificial Intelligence",
+    issuer: "IBM",
+  },
+  {
+    name: "Internship and Job Preparation Training",
     issuer: "Internshala",
-    type: "certificate",
-    available: false,
-    note: "Add web-development.jpg to public/certificates to publish this certificate.",
+  },
+  {
+    name: "Web Development",
+    issuer: "Internshala",
+  },
+  {
+    name: "ISC2 Certified in Cybersecurity",
+    issuer: "Udemy",
+  },
+  {
+    name: "Cybersecurity and Mobility",
+    issuer: "Kennesaw State University",
+  },
+  {
+    name: "Google Colab",
+    issuer: "Perfect Plan B",
+  },
+  {
+    name: "Principles of Artificial Intelligence",
+    issuer: "Presidency University",
+  },
+  {
+    name: "R Programming",
+    issuer: "Presidency University",
+  },
+  {
+    name: "Project Management",
+    issuer: "University of California, Irvine",
+  },
+  {
+    name: "Advanced Linux Privilege Escalation",
+    issuer: "Udemy",
+  },
+  {
+    name: "Python for Everybody",
+    issuer: "University of Michigan",
+  },
+  {
+    name: "Artificial Intelligence Internship",
+    issuer: "Pantech",
+  },
+  {
+    name: "Internship Certificate",
+    issuer: "SoSocial",
+  },
+  {
+    name: "C Programming",
+    issuer: "IIT Bombay Spoken Tutorial",
+  },
+  {
+    name: "Machine Learning",
+    issuer: "ICT Academy",
+  },
+  {
+    name: "Machine Learning Masterclass",
+    issuer: "Pantech",
+  },
+  {
+    name: "Applications of AI and ML in the Automotive Industry",
+    issuer: "IEEE",
+  },
+  {
+    name: "Careers Beyond Coding in IT Sector",
+    issuer: "IEEE",
   },
 ];
