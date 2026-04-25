@@ -269,9 +269,33 @@
   .bg-gradient-card {
     background: var(--gradient-card);
   }
+
+  .certificates-marquee {
+    --marquee-state: running;
+  }
+
+  .certificates-marquee-track {
+    animation: certificate-marquee 38s linear infinite;
+    animation-play-state: var(--marquee-state);
+  }
 }
 
 /* Keyframe animations */
+@keyframes certificate-marquee {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certificates-marquee {
+    overflow-y: auto;
+  }
+
+  .certificates-marquee-track {
+    animation: none;
+  }
+}
+
 @keyframes glitch-skew {
   0% { transform: skew(0deg); }
   20% { transform: skew(-0.5deg); }
