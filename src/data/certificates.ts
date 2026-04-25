@@ -1,12 +1,15 @@
 export interface Certificate {
   name: string;
   issuer: string;
+  featured?: boolean;
+  award?: boolean;
 }
 
 export const certificates: Certificate[] = [
   {
     name: "High Achiever Certificate",
     issuer: "LG Soft India",
+    award: true,
   },
   {
     name: "Machine Learning Regression",
@@ -15,6 +18,7 @@ export const certificates: Certificate[] = [
   {
     name: "Cloud Practitioner",
     issuer: "AWS",
+    featured: true,
   },
   {
     name: "Basics of Python",
@@ -23,10 +27,12 @@ export const certificates: Certificate[] = [
   {
     name: "Cybersecurity",
     issuer: "Cisco NASSCOM",
+    featured: true,
   },
   {
     name: "Programming Foundations",
     issuer: "Duke University",
+    featured: true,
   },
   {
     name: "EdgeLine Championship",
@@ -35,6 +41,7 @@ export const certificates: Certificate[] = [
   {
     name: "Foundations of User Experience",
     issuer: "Google",
+    featured: true,
   },
   {
     name: "Introduction to Deep Learning",
@@ -43,6 +50,7 @@ export const certificates: Certificate[] = [
   {
     name: "Introduction to Artificial Intelligence",
     issuer: "IBM",
+    featured: true,
   },
   {
     name: "Internship and Job Preparation Training",
@@ -59,6 +67,7 @@ export const certificates: Certificate[] = [
   {
     name: "Cybersecurity and Mobility",
     issuer: "Kennesaw State University",
+    featured: true,
   },
   {
     name: "Google Colab",
@@ -75,6 +84,7 @@ export const certificates: Certificate[] = [
   {
     name: "Project Management",
     issuer: "University of California, Irvine",
+    featured: true,
   },
   {
     name: "Advanced Linux Privilege Escalation",
@@ -83,6 +93,7 @@ export const certificates: Certificate[] = [
   {
     name: "Python for Everybody",
     issuer: "University of Michigan",
+    featured: true,
   },
   {
     name: "Artificial Intelligence Internship",
@@ -107,9 +118,11 @@ export const certificates: Certificate[] = [
   {
     name: "Applications of AI and ML in the Automotive Industry",
     issuer: "IEEE",
+    featured: true,
   },
   {
     name: "Careers Beyond Coding in IT Sector",
     issuer: "IEEE",
+    featured: true,
   },
 ];
